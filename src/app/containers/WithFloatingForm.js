@@ -31,5 +31,5 @@ const FloatingFormContent = styled.div`
 `;
 
 const CardContent = styled.div`
-  padding: 15px;
+  padding: 50px 25px;
 `;

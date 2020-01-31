@@ -10,12 +10,20 @@ const NAV_LINE_HEIGHT = 30;
 
 const Nav = ({ isUserLoggedIn, currentUser, loginUser, logoutUser }) => {
 
+  const goToHome = async () => {
+    window.location = '/';
+  };
+
   const goToLogin = async () => {
     window.location = '/login';
   };
 
   const goToSignup = async () => {
     window.location = '/signup';
+  };
+
+  const goToCreateEvent = async () => {
+    window.location = '/create-event';
   };
 
   const logout = async () => {
@@ -25,12 +33,19 @@ const Nav = ({ isUserLoggedIn, currentUser, loginUser, logoutUser }) => {
   return (
     <NavContainer>
       <div className="nav-link-container left">
-        <span className="link">Home</span>
+        <span
+          className="link"
+          onClick={ goToHome }
+        >Home</span>
       </div>
       <div className="nav-link-container right">
       {
         isUserLoggedIn ?
           <>
+            <span
+              className="link"
+              onClick={ goToCreateEvent }
+            >Create Event</span>
             <span className="link">Account</span>
             <span
               className="link"

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import Layout from './app/Layout';
@@ -6,13 +6,24 @@ import { updateIsLoggedIn } from './redux/action';
 
 const App = ({ updateIsLoggedIn }) => {
 
+  const [ isLoading, setIsLoading ] = useState(true);
+
   useEffect(() => {
-    updateIsLoggedIn();
+    const update = async () => {
+      await updateIsLoggedIn();
+      setIsLoading(false);
+    }
+
+    update();
   }, []);
 
   return (
     <>
-      <Layout/>
+      {
+        isLoading ?
+          <span>Loading...</span>
+          : <Layout/>
+      }
     </>
   );
 }

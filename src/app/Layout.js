@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   BrowserRouter as Router,
   Route,
@@ -9,18 +10,36 @@ import Nav from './layout/Nav';
 import ContentBody from './layout/ContentBody';
 import Footer from './layout/Footer';
 
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import CreateEvent from './pages/CreateEvent';
+import NewAccountPrompt from './pages/NewAccountPrompt';
+import AccountSetup from './pages/AccountSetup';
 
-const Layout = () => {
+const Layout = ({ isUserLoggedIn, history }) => {
+
+  if(!isUserLoggedIn && window.location.pathname !== '/login') return (
+    <NewAccountPrompt/>
+  );
+
+  // if(isUserLoggedIn) {
+  //   console.log(window.location);
+
+  //   history.push('/account-setup');
+  // }
+
   return (
     <React.Fragment>
       <Nav/>
       <ContentBody>
         <Router basename="/">
           <Switch>
+            <Route path={ '/' } exact component={ Home } />
             <Route path={ '/login' } component={ Login } />
             <Route path={ '/signup' } component={ Signup } />
+            <Route path={ '/create-event' } component={ CreateEvent } />
+            <Route path={ '/account-setup' } component={ AccountSetup } />
             <Route path="*" render={() => {
               return <div>I see dead links</div>;
             }} />
@@ -32,4 +51,10 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+const mapStateToProps = ({ isUserLoggedIn }) => {
+  return {
+    isUserLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps, {})(Layout);

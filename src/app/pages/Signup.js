@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { signupUser } from '../../redux/action';
 
-const Login = ({ signupUser, isUserLoggedIn }) => {
+const Signup = ({ signupUser, isUserLoggedIn }) => {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -79,4 +79,4 @@ const mapStateToProps = ({ isUserLoggedIn }) => {
 
 export default withFloatingForm(connect(mapStateToProps, {
   signupUser,
-})(Login));
+})(Signup));
