@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-import Layout from './app/Layout';
-import { updateIsLoggedIn } from './redux/action';
+import Layout from 'app/Layout';
+import { updateIsLoggedIn } from 'redux/action';
 
 const App = ({ updateIsLoggedIn }) => {
 

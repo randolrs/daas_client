@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import withFloatingForm from '../containers/WithFloatingForm';
+
+import withFloatingForm from 'app/containers/WithFloatingForm';
+import { signupUser } from 'redux/action';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { signupUser } from '../../redux/action';
+
 
 const Signup = ({ signupUser, isUserLoggedIn }) => {
 

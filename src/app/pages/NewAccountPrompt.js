@@ -1,6 +1,7 @@
 import React from 'react';
-import FullScreenPrompt from '../containers/FullScreenPrompt';
 import styled from 'styled-components';
+
+import FullScreenPrompt from 'app/containers/FullScreenPrompt';
 
 const NewAccountPrompt = () => {
   return (

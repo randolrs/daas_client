@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 
-import { loginUser, logoutUser } from '../../redux/action';
+import { loginUser, logoutUser } from 'redux/action';
 
 import { NAV_HEIGHT } from './dimensions';
 

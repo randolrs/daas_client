@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import { loginUser } from 'redux/action';
 
-import withFloatingForm from '../containers/WithFloatingForm';
-import { FormButtonContainer } from '../styledComponents/index';
+import withFloatingForm from 'app/containers/WithFloatingForm';
+import { FormButtonContainer } from 'app/styledComponents/index';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { loginUser } from '../../redux/action';
 
-const Signup = ({ loginUser, isUserLoggedIn }) => {
+
+const Login = ({ loginUser, isUserLoggedIn }) => {
 
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
@@ -59,6 +60,7 @@ const Signup = ({ loginUser, isUserLoggedIn }) => {
         id="password"
         label="Password"
         name="password"
+        type="password"
         autoComplete="password"
         onChange={ e => setPassword(e.target.value) }
         value={ password }
@@ -83,4 +85,4 @@ const mapStateToProps = ({ isUserLoggedIn }) => {
 
 export default withFloatingForm(connect(mapStateToProps, {
   loginUser,
-})(Signup));
+})(Login));

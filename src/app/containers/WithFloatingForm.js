@@ -2,11 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 
-const WithFloatingForm = (WrappedForm) => {
+const DEFAULT_CONTENT_WIDTH = 500;
+
+const WithFloatingForm = (WrappedForm, width) => {
+  console.log({width});
   return (() => {
     return (
       <FloatingFormContainer>
-        <FloatingFormContent>
+        <FloatingFormContent width={ width }>
           <Card>
             <CardContent>
               <WrappedForm />
@@ -27,7 +30,7 @@ const FloatingFormContainer = styled.div`
 
 const FloatingFormContent = styled.div`
   margin: 0 auto;
-  max-width: 500px;
+  max-width: ${ props => props.width || DEFAULT_CONTENT_WIDTH }px;
 `;
 
 const CardContent = styled.div`

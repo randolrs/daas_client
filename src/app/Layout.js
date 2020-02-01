@@ -6,16 +6,16 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import Nav from './layout/Nav';
-import ContentBody from './layout/ContentBody';
-import Footer from './layout/Footer';
+import Nav from 'app/layout/Nav';
+import ContentBody from 'app/layout/ContentBody';
+import Footer from 'app/layout/Footer';
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import CreateEvent from './pages/CreateEvent';
-import NewAccountPrompt from './pages/NewAccountPrompt';
-import AccountSetup from './pages/AccountSetup';
+import Home from 'app/pages/Home';
+import Login from 'app/pages/Login';
+import Signup from 'app/pages/Signup';
+import CreateEvent from 'app/pages/CreateEvent';
+import NewAccountPrompt from 'app/pages/NewAccountPrompt';
+import AccountSetup from 'app/pages/AccountSetup';
 
 const Layout = ({ isUserLoggedIn, history }) => {
 
