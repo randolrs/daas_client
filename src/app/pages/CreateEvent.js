@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import withFloatingForm from 'app/containers/WithFloatingForm';
+import { ordinalSuffixOf } from 'app/helpers/number-helpers';
+
 import {
   FormButtonContainer,
   FormHeader,
@@ -14,6 +16,10 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Collapse from '@material-ui/core/Collapse';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControl from '@material-ui/core/FormControl';
+import FormLabel from '@material-ui/core/FormLabel';
 
 import {
   MuiPickersUtilsProvider,
@@ -25,24 +31,36 @@ import DateFnsUtils from '@date-io/date-fns';
 import TodayIcon from '@material-ui/icons/Today';
 import RoomIcon from '@material-ui/icons/Room';
 
-const CreateEvent = () => {
+const DAILY = 'daily';
+const WEEKLY = 'weekly';
+const WEEKDAYS = 'weekdays';
+const MONTHLY = 'monthly';
 
+const CreateEvent = () => {
   const [ name, setName ] = useState('');
   const [ description, setDescription ] = useState('');
   const [ date, setDate ] = useState(new Date);
   const [ time, setTime ] = useState(new Date);
+  const [ dateDayOfWeek, setDateDayOfWeek ] = useState('');
+  const [ dateDayOfMonth, setDateDayOfMonth ] = useState('');
   const [ isRecurring, setIsRecurring ] = useState(false);
+  const [ recurrenceInterval, setRecurrenceInterval ] = useState('');
   const [ venueName, setVenueName ] = useState('');
   const [ venueAddress, setVenueAddress ] = useState('');
   const [ venueAddress2, setVenueAddress2 ] = useState('');
   const [ password, setPassword ] = useState('');
+
+  useEffect(() => {
+    setDateDayOfWeek(getDayOfTheWeekFromIndex(date.getDay() - 1));
+    setDateDayOfMonth(ordinalSuffixOf(date.getDate()));
+  }, [ date ]);
 
   const onSubmit = () => {
 
   }
 
   return (
-    <>
+    <React.Fragment>
       <FormHeader>Create Event</FormHeader>
       <FormRowContainer>
         <TextField
@@ -111,7 +129,24 @@ const CreateEvent = () => {
 
       <Collapse in={ isRecurring } collapsedHeight={0}>
         <FormRowContainer>
-          <span>Recurring Options</span>
+          <FormControl component="fieldset">
+            <FormLabel component="legend">Repeats</FormLabel>
+            <RadioGroup
+              aria-label="repeats"
+              name="repeats"
+              value={ recurrenceInterval }
+              onChange={ (e) => setRecurrenceInterval(e.target.value) }
+            >
+              <FormControlLabel value={ DAILY } control={<Radio />} label="Daily" />
+              {
+                dateDayOfWeek !== 'Saturday' && dateDayOfWeek !== 'Sunday' ?
+                  <FormControlLabel value={ WEEKDAYS } control={<Radio />} label="Weekdays Only" />
+                : null
+              }
+              <FormControlLabel value={ WEEKLY } control={<Radio />} label={ `Weekly (${ dateDayOfWeek }s)` } />
+              <FormControlLabel value={ MONTHLY } control={<Radio />} label={ `Monthly (${ dateDayOfMonth } day of the month)` } />
+            </RadioGroup>
+          </FormControl>
         </FormRowContainer>
       </Collapse>
 
@@ -157,12 +192,13 @@ const CreateEvent = () => {
       <FormButtonContainer>
         <Button
           fullWidth
+          size="large"
           variant="contained"
           color="primary"
           onClick={ onSubmit }
         >Create Event</Button>
       </FormButtonContainer>
-    </>
+    </React.Fragment>
   )
 };
 
@@ -173,3 +209,6 @@ const mapStateToProps = ({ isUserLoggedIn }) => {
 };
 
 export default withFloatingForm(connect(mapStateToProps, {})(CreateEvent), 600);
+
+const DAYS_OF_THE_WEEK = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ];
+const getDayOfTheWeekFromIndex = (index) => DAYS_OF_THE_WEEK[index] || '';
