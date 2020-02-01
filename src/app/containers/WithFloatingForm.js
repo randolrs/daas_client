@@ -24,7 +24,6 @@ const WithFloatingForm = (WrappedForm, width) => {
 export default WithFloatingForm;
 
 const FloatingFormContainer = styled.div`
-  padding-top: 50px;
   position: relative;
 `;
 

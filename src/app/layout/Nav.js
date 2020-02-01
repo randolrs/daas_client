@@ -89,6 +89,9 @@ const NavContainer = styled.div`
   top: 0px;
   left: 0px;
   right: 0px;
+  z-index: 999;
+  border-bottom: 1px solid #cacaca;
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.1);
 
   .nav-link-container {
     position: absolute;

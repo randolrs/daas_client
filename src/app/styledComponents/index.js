@@ -10,6 +10,15 @@ export const FormHeader = styled.div`
   margin-bottom: 30px;
 `;
 
+export const FormSubHeader = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 14px;
+  span, svg {
+    vertical-align: middle;
+  }
+`;
+
 export const FormRowContainer = styled.div`
   margin-bottom: 40px;
   &:last-child {
