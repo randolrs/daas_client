@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 
+import { createEvent } from 'api/events';
+
 import withFloatingForm from 'app/containers/WithFloatingForm';
 import { ordinalSuffixOf } from 'app/helpers/number-helpers';
 
@@ -39,8 +41,9 @@ const MONTHLY = 'monthly';
 const CreateEvent = () => {
   const [ name, setName ] = useState('');
   const [ description, setDescription ] = useState('');
-  const [ date, setDate ] = useState(new Date);
-  const [ time, setTime ] = useState(new Date);
+  const [ website, setWebsite ] = useState('');
+  const [ date, setDate ] = useState(new Date());
+  const [ time, setTime ] = useState(new Date());
   const [ dateDayOfWeek, setDateDayOfWeek ] = useState('');
   const [ dateDayOfMonth, setDateDayOfMonth ] = useState('');
   const [ isRecurring, setIsRecurring ] = useState(false);
@@ -48,15 +51,29 @@ const CreateEvent = () => {
   const [ venueName, setVenueName ] = useState('');
   const [ venueAddress, setVenueAddress ] = useState('');
   const [ venueAddress2, setVenueAddress2 ] = useState('');
-  const [ password, setPassword ] = useState('');
 
   useEffect(() => {
-    setDateDayOfWeek(getDayOfTheWeekFromIndex(date.getDay() - 1));
+    setDateDayOfWeek(getDayOfTheWeekFromIndex(date.getDay()));
     setDateDayOfMonth(ordinalSuffixOf(date.getDate()));
   }, [ date ]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
+    const params = {
+      attributes: {
+        name,
+        description,
+        website,
+      }, recurrence: {
+        date, time, recurrenceInterval
+      }, venue: {
+        id: undefined,
+        name: venueName,
+        address: venueAddress,
+        address2: venueAddress2
+      }
+    };
 
+    await createEvent(params);
   }
 
   return (
@@ -85,9 +102,19 @@ const CreateEvent = () => {
           id="description"
           label="Event Description"
           name="description"
-          autoFocus
           onChange={ e => setDescription(e.target.value) }
           value={ description }
+        />
+        <TextField
+          variant="outlined"
+          margin="normal"
+          required
+          fullWidth
+          id="website"
+          label="Event Website"
+          name="website"
+          onChange={ e => setWebsite(e.target.value) }
+          value={ website }
         />
       </FormRowContainer>
 
@@ -210,5 +237,5 @@ const mapStateToProps = ({ isUserLoggedIn }) => {
 
 export default withFloatingForm(connect(mapStateToProps, {})(CreateEvent), 600);
 
-const DAYS_OF_THE_WEEK = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ];
+const DAYS_OF_THE_WEEK = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
 const getDayOfTheWeekFromIndex = (index) => DAYS_OF_THE_WEEK[index] || '';
