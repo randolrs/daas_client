@@ -2,21 +2,34 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { loginUser } from 'redux/action';
-
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
+import { fetchEventOccurrences } from 'api/event_occurrences';
+import EventOccurrenceIndexCard from 'app/resources/eventOccurrences/indexCard';
 
 
 const Home = ({ history }) => {
 
-  history.push('/account-setup');
+  const [ eventOccurrences, setEventOccurrences ] = useState([]);
+
+  // history.push('/account-setup');
+  useEffect(() => {
+    getEventOccurrences();
+  }, []);
+
+  const getEventOccurrences = async () => {
+    const { data } = await fetchEventOccurrences();
+
+    setEventOccurrences(data);
+  }
 
   return (
-    <>
+    <React.Fragment>
       <span>Home</span>
-    </>
+      {
+        eventOccurrences ?
+          eventOccurrences.map(eventOccurrence => <EventOccurrenceIndexCard eventOccurrence={ eventOccurrence } />)
+        : null
+      }
+    </React.Fragment>
   )
 };
 

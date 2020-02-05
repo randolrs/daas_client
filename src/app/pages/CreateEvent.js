@@ -5,6 +5,7 @@ import { createEvent } from 'api/events';
 
 import withFloatingForm from 'app/containers/WithFloatingForm';
 import { ordinalSuffixOf } from 'app/helpers/number-helpers';
+import { combineDateTime } from 'app/helpers/date-helpers';
 
 import {
   FormButtonContainer,
@@ -44,6 +45,7 @@ const CreateEvent = () => {
   const [ website, setWebsite ] = useState('');
   const [ date, setDate ] = useState(new Date());
   const [ time, setTime ] = useState(new Date());
+  const [ dateTime, setDateTime ] = useState('');
   const [ dateDayOfWeek, setDateDayOfWeek ] = useState('');
   const [ dateDayOfMonth, setDateDayOfMonth ] = useState('');
   const [ isRecurring, setIsRecurring ] = useState(false);
@@ -57,14 +59,25 @@ const CreateEvent = () => {
     setDateDayOfMonth(ordinalSuffixOf(date.getDate()));
   }, [ date ]);
 
+  useEffect(() => {
+    updateDateTime();
+  }, [ date, time ]);
+
+  const updateDateTime = () => {
+    const dateTime = combineDateTime({ date, time });
+    setDateTime(dateTime);
+  };
+
   const onSubmit = async () => {
+    const initialDate = dateTime;
+
     const params = {
       attributes: {
         name,
         description,
         website,
-      }, recurrence: {
-        date, time, recurrenceInterval
+        initialDate,
+        recurrence: recurrenceInterval
       }, venue: {
         id: undefined,
         name: venueName,

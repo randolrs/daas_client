@@ -5,7 +5,6 @@ import Card from '@material-ui/core/Card';
 const DEFAULT_CONTENT_WIDTH = 500;
 
 const WithFloatingForm = (WrappedForm, width) => {
-  console.log({width});
   return (() => {
     return (
       <FloatingFormContainer>
