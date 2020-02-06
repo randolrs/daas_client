@@ -41,17 +41,11 @@ class ApiClient {
 
   fetchAll = (url, params) => {
     return this.api.get(url).then(res => {
-      const {
-        results,
-        total,
-        total_pages
-      } = res.data;
-
       const result = {
-        data: results,
-        meta: {
-          total,
-        }
+        data: res.data,
+        // meta: {
+        //   total,
+        // }
       };
 
       return result;
@@ -59,7 +53,6 @@ class ApiClient {
   }
 
   buildQueryString(params) {
-    console.log({params});
     const result = qs.stringify(params, { arrayFormat: 'brackets', encodeValuesOnly: true });
 
     return result ? `?${result}` : '';

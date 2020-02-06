@@ -2,12 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import Card from '@material-ui/core/Card';
 
-const EventOccurrenceIndexCard = (eventOccurence) => {
+const EventOccurrenceIndexCard = ({ eventOccurrence }) => {
+  if(!eventOccurrence) return null;
+
   return (
-    <CardContainer>
+    <CardContainer key={ `event-occurrence-index-card-${ eventOccurrence.id }` }>
       <Card>
         <CardContent>
-          Event
+          <span>{ eventOccurrence.event.name  }</span>
+          <span>{ eventOccurrence.description || eventOccurrence.event.description }</span>
         </CardContent>
       </Card>
     </CardContainer>
