@@ -10,22 +10,6 @@ const NAV_LINE_HEIGHT = 30;
 
 const Nav = ({ isUserLoggedIn, currentUser, loginUser, logoutUser }) => {
 
-  const goToHome = async () => {
-    window.location = '/';
-  };
-
-  const goToLogin = async () => {
-    window.location = '/login';
-  };
-
-  const goToSignup = async () => {
-    window.location = '/signup';
-  };
-
-  const goToCreateEvent = async () => {
-    window.location = '/create-event';
-  };
-
   const logout = async () => {
     await logoutUser();
   };
@@ -41,19 +25,23 @@ const Nav = ({ isUserLoggedIn, currentUser, loginUser, logoutUser }) => {
       <div className="nav-link-container right">
       {
         isUserLoggedIn ?
-          <>
+          <React.Fragment>
             <span
               className="link"
               onClick={ goToCreateEvent }
             >Create Event</span>
+            <span
+              className="link"
+              onClick={ goToTags }
+            >Tags</span>
             <span className="link">Account</span>
             <span
               className="link"
               onClick={ logout }
             >Logout</span>
-          </>
+          </React.Fragment>
         :
-          <>
+          <React.Fragment>
             <span
               className="link"
               onClick={ goToLogin }
@@ -62,7 +50,7 @@ const Nav = ({ isUserLoggedIn, currentUser, loginUser, logoutUser }) => {
               className="link"
               onClick={ goToSignup }
             >Signup</span>
-          </>
+          </React.Fragment>
       }
       </div>
     </NavContainer>
@@ -80,6 +68,26 @@ export default connect(mapStateToProps, {
   loginUser,
   logoutUser,
 })(Nav);
+
+const goToHome = async () => {
+  window.location = '/';
+};
+
+const goToLogin = async () => {
+  window.location = '/login';
+};
+
+const goToSignup = async () => {
+  window.location = '/signup';
+};
+
+const goToCreateEvent = async () => {
+  window.location = '/create-event';
+};
+
+const goToTags = async () => {
+  window.location = '/tags';
+};
 
 const NavContainer = styled.div`
   height: ${ NAV_HEIGHT }px;

@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
+import PageContent from 'app/containers/PageContent';
+
 import { fetchEventOccurrences } from 'api/event_occurrences';
 import EventOccurrenceIndexCard from 'app/resources/eventOccurrences/indexCard';
 
 
 const Home = ({ history }) => {
-
   const [ eventOccurrences, setEventOccurrences ] = useState([]);
 
-  // history.push('/account-setup');
   useEffect(() => {
     getEventOccurrences();
   }, []);
@@ -23,7 +23,6 @@ const Home = ({ history }) => {
 
   return (
     <React.Fragment>
-      <span>Home</span>
       {
         eventOccurrences ?
           eventOccurrences.map(eventOccurrence => <EventOccurrenceIndexCard eventOccurrence={ eventOccurrence } />)
@@ -39,4 +38,4 @@ const mapStateToProps = ({ isUserLoggedIn }) => {
   };
 };
 
-export default connect(mapStateToProps, {})(withRouter(Home));
+export default connect(mapStateToProps, {})(PageContent(withRouter(Home)));

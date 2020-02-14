@@ -16,6 +16,7 @@ import Signup from 'app/pages/Signup';
 import CreateEvent from 'app/pages/CreateEvent';
 import NewAccountPrompt from 'app/pages/NewAccountPrompt';
 import AccountSetup from 'app/pages/AccountSetup';
+import EventTags from 'app/pages/EventTags';
 
 const Layout = ({ isUserLoggedIn, history }) => {
 
@@ -40,6 +41,7 @@ const Layout = ({ isUserLoggedIn, history }) => {
             <Route path={ '/signup' } component={ Signup } />
             <Route path={ '/create-event' } component={ CreateEvent } />
             <Route path={ '/account-setup' } component={ AccountSetup } />
+            <Route path={ '/tags' } component={ EventTags } />
             <Route path="*" render={() => {
               return <div>I see dead links</div>;
             }} />
